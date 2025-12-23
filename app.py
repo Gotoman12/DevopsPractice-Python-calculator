@@ -1,40 +1,31 @@
+from flask import Flask, request, jsonify
+from calculator import add, subtract, multiply, divide
 
-import tkinter as tk
+app = Flask(__name__)
 
-def add():
-    result.set(float(num1.get()) + float(num2.get()))
+@app.route("/add")
+def add_api():
+    a = float(request.args.get("a"))
+    b = float(request.args.get("b"))
+    return jsonify(result=add(a, b))
 
-def subtract():
-    result.set(float(num1.get()) - float(num2.get()))
+@app.route("/subtract")
+def subtract_api():
+    a = float(request.args.get("a"))
+    b = float(request.args.get("b"))
+    return jsonify(result=subtract(a, b))
 
-def multiply():
-    result.set(float(num1.get()) * float(num2.get()))
+@app.route("/multiply")
+def multiply_api():
+    a = float(request.args.get("a"))
+    b = float(request.args.get("b"))
+    return jsonify(result=multiply(a, b))
 
-def divide():
-    try:
-        result.set(float(num1.get()) / float(num2.get()))
-    except ZeroDivisionError:
-        result.set("Error")
+@app.route("/divide")
+def divide_api():
+    a = float(request.args.get("a"))
+    b = float(request.args.get("b"))
+    return jsonify(result=divide(a, b))
 
-root = tk.Tk()
-root.title("Python Calculator")
-
-num1 = tk.StringVar()
-num2 = tk.StringVar()
-result = tk.StringVar()
-
-tk.Label(root, text="Number 1").grid(row=0, column=0)
-tk.Entry(root, textvariable=num1).grid(row=0, column=1)
-
-tk.Label(root, text="Number 2").grid(row=1, column=0)
-tk.Entry(root, textvariable=num2).grid(row=1, column=1)
-
-tk.Button(root, text="+", command=add).grid(row=2, column=0)
-tk.Button(root, text="-", command=subtract).grid(row=2, column=1)
-tk.Button(root, text="*", command=multiply).grid(row=3, column=0)
-tk.Button(root, text="/", command=divide).grid(row=3, column=1)
-
-tk.Label(root, text="Result").grid(row=4, column=0)
-tk.Entry(root, textvariable=result).grid(row=4, column=1)
-
-root.mainloop()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
