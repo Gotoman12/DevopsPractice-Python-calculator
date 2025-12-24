@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-cal
+  labels:
+    name: calculator
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      name: calculator
+  template:
+    metadata:
+      labels:
+        name: calculator
+    spec:
+      containers:
+        - name: calculator
+          image: arjunckm/python:25dc703753065b5ba6e6bd5cd8dd2f9e6bf31ba9
+          ports:
+          - containerPort: 5000
+      
