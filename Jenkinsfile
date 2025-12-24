@@ -19,6 +19,8 @@ pipeline{
         }
         stage("docker-run"){
             steps{
+                sh 'docker kill python-calc'
+                sh 'docker rm python-calc'
                 sh 'docker run -it -d --name python-calc -p 6001:5000 ${IMAGE_NAME}'
             }
         }
