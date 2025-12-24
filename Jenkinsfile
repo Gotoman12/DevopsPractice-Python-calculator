@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage("GIT-CKECKOUT"){
             steps{
-                git url:"https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", "main"
+                git url:"https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "main"
             }
         }
         stage("docker-build"){
