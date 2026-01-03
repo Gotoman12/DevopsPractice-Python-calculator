@@ -1,22 +1,25 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage("GIT-CKECKOUT"){
-            steps{
-                git url:"https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "Decsecops"
+    stages {
+        stage("GIT-CHECKOUT") {
+            steps {
+                git url: "https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "Decsecops"
             }
         }
-        stage("comiple"){
-            steps{
+
+        stage("compile") {
+            steps {
                 sh '''
-                apt-get update && apt-get install -y python3 python3-pip
-                pip3 install --no-cache-dir -r requirements.txt
+                python3 --version
+                python3 -m pip install --upgrade pip
+                python3 -m pip install --no-cache-dir -r requirements.txt
                 '''
             }
         }
-        stage("test"){
-            steps{
+
+        stage("test") {
+            steps {
                 sh 'python3 tests/test_app.py'
             }
         }
