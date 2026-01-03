@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                 python3 --version
-                pip install --upgrade pip
+                source venv/bin/activate
                 pip install -r requirements.txt
                 '''
             }
