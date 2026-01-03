@@ -1,26 +1,30 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.12-slim'
+        }
+    }
 
     stages {
-        stage("GIT-CHECKOUT") {
+        stage("Checkout") {
             steps {
                 git url: "https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "Decsecops"
             }
         }
 
-        stage("Install pip & dependencies") {
+        stage("Install dependencies") {
             steps {
-                 sh '''
-                python3 --version
-                apt install python3-pip
-                python3-pip install -r requirements.txt
+                sh '''
+                python --version
+                pip install --upgrade pip
+                pip install -r requirements.txt
                 '''
             }
         }
 
         stage("Test") {
             steps {
-                sh 'python3 tests/test_app.py'
+                sh 'python tests/test_app.py'
             }
         }
     }
