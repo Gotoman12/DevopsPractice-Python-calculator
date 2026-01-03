@@ -1,9 +1,6 @@
 pipeline{
     agent any
 
-   tools{
-    python ""
-   }
     stages{
         stage("GIT-CKECKOUT"){
             steps{
