@@ -11,32 +11,14 @@ pipeline{
                 git url:"https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "main"
             }
         }
-        stage("docker-build"){
+        stage("comiple"){
             steps{
-                sh 'docker build -t ${IMAGE_NAME} .'
-            }
-
-        }
-        stage("docker-run"){
-            steps{
-                sh 'docker kill python-calc'
-                sh 'docker rm python-calc'
-                sh 'docker run -it -d --name python-calc -p 6001:5000 ${IMAGE_NAME}'
+                sh 'pip install --no-cache-dir -r requirements.txt'
             }
         }
-         stage("docker-login"){
+        stage("test"){
             steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId: 'docker_hubcred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        // Login to Docker Hub
-                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                 }
-                }
-            }
-        }
-        stage("docker-push"){
-            steps{
-                sh 'docker push ${IMAGE_NAME}'
+                sh 'python3 tests/test_app.py'
             }
         }
     }
