@@ -8,17 +8,18 @@ pipeline {
             }
         }
 
-        stage("compile") {
+        stage("Install pip & dependencies") {
             steps {
                 sh '''
                 python3 --version
+                python3 -m ensurepip --upgrade
                 python3 -m pip install --upgrade pip
-                python3 -m pip install --no-cache-dir -r requirements.txt
+                python3 -m pip install -r requirements.txt
                 '''
             }
         }
 
-        stage("test") {
+        stage("Test") {
             steps {
                 sh 'python3 tests/test_app.py'
             }
