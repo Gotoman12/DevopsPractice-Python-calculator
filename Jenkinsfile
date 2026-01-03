@@ -1,10 +1,9 @@
 pipeline{
     agent any
 
-    environment {
-        IMAGE_NAME="arjunckm/pythoncalculator:${GIT_COMMIT}"
-    }
-
+   tools{
+    python ""
+   }
     stages{
         stage("GIT-CKECKOUT"){
             steps{
@@ -13,7 +12,7 @@ pipeline{
         }
         stage("comiple"){
             steps{
-                sh 'pip install --no-cache-dir -r requirements.txt'
+                sh 'python3 pip install --no-cache-dir -r requirements.txt'
             }
         }
         stage("test"){
