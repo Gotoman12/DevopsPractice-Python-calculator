@@ -4,15 +4,16 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git url: "https://github.com/Gotoman12/DevopsPractice-Python-calculator.git", branch: "Decsecops"
+                git url: "https://github.com/Gotoman12/DevopsPractice-Python-calculator.git",
+                    branch: "Decsecops"
             }
         }
 
-        stage("Install dependencies") {
+        stage("Setup Environment") {
             steps {
                 sh '''
-                python3 --version
-                source venv/bin/activate
+                python3 -m venv venv
+                . venv/bin/activate
                 pip install -r requirements.txt
                 '''
             }
@@ -20,7 +21,10 @@ pipeline {
 
         stage("Test") {
             steps {
-                sh 'python3 tests/test_app.py'
+                sh '''
+                . venv/bin/activate
+                python tests/test_app.py
+                '''
             }
         }
     }
