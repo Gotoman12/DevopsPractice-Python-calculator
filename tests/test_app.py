@@ -1,4 +1,9 @@
-import app.app as calc
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import app as calc
 
 def test_addition():
     assert 2 + 3 == 5
