@@ -12,8 +12,8 @@ pipeline {
             steps {
                  sh '''
                 python3 --version
-                python3 pip install --upgrade pip
-                python3 pip install -r requirements.txt
+                apt install python3-pip
+                python3-pip install -r requirements.txt
                 '''
             }
         }
